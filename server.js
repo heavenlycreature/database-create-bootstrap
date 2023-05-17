@@ -25,7 +25,7 @@ db.connect((err) => {
   if (err) throw err;
   console.log("database ready...");
   app.get("/", (req, res) => {
-    const sql = "SELECT * FROM data_mhs";
+    const sql = "SELECT * FROM data_kelas";
     db.query(sql, (err, result) => {
       const users = JSON.parse(JSON.stringify(result));
       res.render("index", { users: users, judul: "Daftar Mahasiswa" });
@@ -33,14 +33,14 @@ db.connect((err) => {
   });
   //insert data
   app.post("/add", (req, res) => {
-    const insertSql = `INSERT INTO data_mhs (Name, Class) VALUES ('${req.body.nama}', '${req.body.kelas}');`;
+    const insertSql = `INSERT INTO data_kelas (Name, kelas) VALUES ('${req.body.nama}', '${req.body.kelas}');`;
     db.query(insertSql, (err, result) => {
       if (err) throw err;
       res.redirect("/");
     });
   });
-  // app.post("/delete", (req, res) => {
-  //   const deleteSql = `DELETE FROM data_mhs WHERE data_mhs . id = '${req.body.id}';`;
+  // app.delete("/delete", (req, res) => {
+  //   const deleteSql = `DELETE FROM data_mhs WHERE id = '${req.body.id}';`;
   //   db.query(deleteSql, (err, result) => {
   //     if (err) throw err;
   //     res.redirect("/");
